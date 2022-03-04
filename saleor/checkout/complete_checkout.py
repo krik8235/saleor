@@ -522,6 +522,7 @@ def _create_order(
 
     # assign checkout payments to the order
     checkout.payments.update(order=order)
+    checkout.poc_payments.update(order=order)
 
     # copy metadata from the checkout into the new order
     order.metadata = checkout.metadata

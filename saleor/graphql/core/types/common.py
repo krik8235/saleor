@@ -24,9 +24,12 @@ from ..enums import (
     MenuErrorCode,
     MetadataErrorCode,
     OrderErrorCode,
+    OrderFromCheckoutCreateErrorCode,
     OrderSettingsErrorCode,
     PageErrorCode,
+    PaymentCreateErrorCode,
     PaymentErrorCode,
+    PaymentUpdateErrorCode,
     PermissionEnum,
     PermissionGroupErrorCode,
     PluginErrorCode,
@@ -40,7 +43,7 @@ from ..enums import (
     WarehouseErrorCode,
     WebhookErrorCode,
     WeightUnitsEnum,
-    WishlistErrorCode, OrderFromCheckoutCreateErrorCode,
+    WishlistErrorCode,
 )
 from ..scalars import PositiveDecimal
 from .money import VAT
@@ -146,8 +149,11 @@ class CheckoutError(Error):
         description="A type of address that causes the error.", required=False
     )
 
+
 class OrderFromCheckoutCreateError(Error):
-    code = OrderFromCheckoutCreateErrorCode(description="The error code.", required=True)
+    code = OrderFromCheckoutCreateErrorCode(
+        description="The error code.", required=True
+    )
     variants = graphene.List(
         graphene.NonNull(graphene.ID),
         description="List of varint IDs which causes the error.",
@@ -338,6 +344,14 @@ class PaymentError(Error):
         description="List of varint IDs which causes the error.",
         required=False,
     )
+
+
+class PaymentCreateError(Error):
+    code = PaymentCreateErrorCode(description="The error code.", required=True)
+
+
+class PaymentUpdateError(Error):
+    code = PaymentUpdateErrorCode(description="The error code.", required=True)
 
 
 class GiftCardError(Error):
